@@ -1,5 +1,6 @@
 import { Router } from "express";
 import axios from "axios";
+import { sanitizer } from "../helpers/Sanitizer";
 const router: Router = Router();
 
 router.get("/countries", async (_, res) => {
@@ -18,7 +19,7 @@ router.get("/countries", async (_, res) => {
         .get("https://restcountries.com/v3.1/all")
         .then((allCountries) => {
             // everything goes fine!
-            const sanitizedData: Array<any> = sanitizeData(allCountries);
+            const sanitizedData: Array<any> = sanitizer(allCountries);
             res.json({
                 status: "Success!",
                 data: sanitizedData,
@@ -55,22 +56,5 @@ router.get("/countries", async (_, res) => {
             }
         });
 });
-
-function sanitizeData(data: axios.AxiosResponse<any, any>): Array<any> {
-    const fetchedData: Array<any> = data.data;
-    const mappedData: Array<any> = fetchedData.map((resp) => {
-        return {
-            name: resp.name,
-            flags: resp.flags.png,
-            region: resp.region,
-            subregion: resp.subregion,
-            capital: resp.capital,
-            population: resp.population,
-            languages: resp.languages,
-            currencies: resp.currencies,
-        };
-    });
-    return mappedData;
-}
 
 export { router };
