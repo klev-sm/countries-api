@@ -1,15 +1,21 @@
 import * as dotenv from "dotenv";
-dotenv.config({ path: "../.env" });
 
 import express from "express";
 import { router } from "./routes/router";
+import path from "path";
+
+const directory = path.resolve(process.cwd(), "../../.env");
+dotenv.config({ path: directory });
 
 export class App {
     public server: express.Application;
-    protected port: string;
+    public port: string;
 
     constructor() {
         this.server = express();
+        this.middleware();
+        this.router();
+        this.port = process.env.PORT || "5000";
     }
 
     private middleware() {
