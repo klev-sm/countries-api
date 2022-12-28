@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "outDir": "app/build",
+        "target": "ES6",
+        "noEmitOnError": true,
+        "noImplicitAny": true,
+        "removeComments": true,
+        "strictNullChecks": true,
+        "esModuleInterop": true
+    }
+}
