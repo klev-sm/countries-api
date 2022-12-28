@@ -1,8 +1,9 @@
 import { Router } from "express";
-import axios, { all } from "axios";
+import axios from "axios";
+import { sanitizer } from "../helpers/Sanitizer";
 const router: Router = Router();
 
-router.get("/countries", async (req, res) => {
+router.get("/countries", async (_, res) => {
     /* GET infos about all countries
      * Offical and common names
      * Flag
@@ -10,15 +11,18 @@ router.get("/countries", async (req, res) => {
      * SubRegion
      * Capital
      * Population
+     * Languages
+     * Currencie
      */
 
     axios
         .get("https://restcountries.com/v3.1/all")
         .then((allCountries) => {
             // everything goes fine!
+            const sanitizedData: Array<any> = sanitizer(allCountries);
             res.json({
                 status: "Success!",
-                data: allCountries.data,
+                data: sanitizedData,
             }).status(200);
         })
         .catch((error) => {
@@ -42,6 +46,7 @@ router.get("/countries", async (req, res) => {
                 }).status(error.response.status);
             } else {
                 // Something happened in setting up the request that triggered an Error
+                console.log(error);
                 res.json({
                     status: "Failed!",
                     requestError: error.request,

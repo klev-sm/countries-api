@@ -1,4 +1,4 @@
-import { App } from "./App";
+import { App } from "./models/App";
 
 const appConnection = new App();
 appConnection.server.listen(appConnection.port, () => {
