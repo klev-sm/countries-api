@@ -1,6 +1,8 @@
 import { Router } from "express";
 import axios from "axios";
 import { sanitizer } from "../helpers/Sanitizer";
+import Countrie from "../models/Countrie";
+
 const router: Router = Router();
 
 router.get("/countries", async (_, res) => {
@@ -15,16 +17,25 @@ router.get("/countries", async (_, res) => {
      * Currencie
      */
 
+    // every time I call this route I need to make a querie on mongo [x]
+    // but before that querie, I need to check if the countrie is already saved
+    // on mongo database
     axios
         .get("https://restcountries.com/v3.1/all")
         .then((allCountries) => {
             // getting the right data
             const sanitizedData: Array<any> = sanitizer(allCountries);
-            // everything goes fine!
-            res.json({
-                status: "Success!",
-                data: sanitizedData,
-            }).status(200);
+            Countrie.create(sanitizedData)
+                .then(() => {
+                    // everything goes fine!
+                    res.json({
+                        status: "Success! Data returned.",
+                        data: sanitizedData,
+                    }).status(200);
+                })
+                .catch((error) => {
+                    throw new Error(error);
+                });
         })
         .catch((error) => {
             if (error.response) {

@@ -4,7 +4,7 @@ import axios from "axios";
 export function sanitizer(data: axios.AxiosResponse<any, any>): Array<any> {
     const fetchedData: Array<any> = data.data;
     const mappedData: Array<any> = fetchedData.map((resp) => {
-        return {
+        const objData = {
             name: resp.name,
             flags: resp.flags.png,
             region: resp.region,
@@ -14,6 +14,7 @@ export function sanitizer(data: axios.AxiosResponse<any, any>): Array<any> {
             languages: resp.languages,
             currencies: resp.currencies,
         };
+        return objData;
     });
     return mappedData;
 }
