@@ -4,6 +4,7 @@ import express from "express";
 import { router } from "../routes/router";
 import path from "path";
 
+// changing the dotenv directory in order to match the project directory
 const directory = path.resolve(process.cwd(), "../../.env");
 dotenv.config({ path: directory });
 

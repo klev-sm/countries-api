@@ -18,8 +18,9 @@ router.get("/countries", async (_, res) => {
     axios
         .get("https://restcountries.com/v3.1/all")
         .then((allCountries) => {
-            // everything goes fine!
+            // getting the right data
             const sanitizedData: Array<any> = sanitizer(allCountries);
+            // everything goes fine!
             res.json({
                 status: "Success!",
                 data: sanitizedData,
