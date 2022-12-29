@@ -1,11 +1,11 @@
-import { Router } from "express";
+import { Response, Router } from "express";
 import axios from "axios";
 import { sanitizer } from "../helpers/Sanitizer";
 import Countrie from "../models/Countrie";
 
 const router: Router = Router();
 
-router.get("/countries", async (_, res) => {
+router.get("/countries", async (req, res) => {
     /* GET infos about all countries
      * Offical and common names
      * Flag
@@ -17,9 +17,36 @@ router.get("/countries", async (_, res) => {
      * Currencie
      */
 
-    // every time I call this route I need to make a querie on mongo [x]
-    // but before that querie, I need to check if the countrie is already saved
-    // on mongo database
+    try {
+        const documentQuantity: number = await Countrie.count();
+        console.log("quantidade: " + documentQuantity);
+        if (documentQuantity > 0 && documentQuantity <= 250) {
+            // there are countries saved on database
+            // so I must return these countries
+            Countrie.find((error, countries) => {
+                if (error) {
+                    res.json({
+                        status: "Failed!",
+                        message: "Could not return data!",
+                    }).status(404);
+                }
+                res.json({
+                    status: "Success! Data returned.",
+                    origin: "MongoDB",
+                    data: countries,
+                }).status(200);
+            });
+        } else {
+            // there are not countries saved on database
+            // so I must get through api
+            fetchApi(res);
+        }
+    } catch (error) {
+        throw new Error(error);
+    }
+});
+
+function fetchApi(res: Response): void {
     axios
         .get("https://restcountries.com/v3.1/all")
         .then((allCountries) => {
@@ -67,6 +94,6 @@ router.get("/countries", async (_, res) => {
                 }).status(error.response.status);
             }
         });
-});
+}
 
 export { router };
