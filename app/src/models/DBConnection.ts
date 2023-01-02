@@ -12,8 +12,9 @@ export class DBConnection {
     }
 
     private connectToDatabase() {
+        mongoose.set("strictQuery", false);
         mongoose.connect(
-            `mongodb+srv://admin:${process.env.MONGODB_PASSWORD}@cluster-countries.0uaijgp.mongodb.net/`
+            `mongodb+srv://admin:${process.env.MONGODB_PASSWORD}@cluster-countries.0uaijgp.mongodb.net/countrie-api`
         );
         const databaseConnection = mongoose.connection;
         return databaseConnection;
