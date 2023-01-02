@@ -1,8 +1,8 @@
 import * as dotenv from "dotenv";
 
 import express from "express";
-import { router } from "../routes/router";
 import path from "path";
+import countrieRoutes from "./routes/countrieRoutes";
 
 // changing the dotenv directory in order to match the project directory
 const directory = path.resolve(process.cwd(), "../../.env");
@@ -24,6 +24,7 @@ export class App {
     }
 
     private router() {
-        this.server.use(router);
+        // routes that will be used
+        this.server.use(countrieRoutes);
     }
 }
