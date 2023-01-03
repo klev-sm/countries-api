@@ -2,7 +2,7 @@ import { fetchApi } from "../helpers/fetchApi";
 import Countrie from "../models/Countrie";
 import { Request, Response } from "express";
 
-export default class CountrieController {
+export class CountrieController {
     static async getCountries(_: Request, res: Response) {
         try {
             const documentQuantity: number = await Countrie.count();
