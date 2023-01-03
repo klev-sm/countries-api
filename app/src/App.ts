@@ -6,7 +6,7 @@ import path from "path";
 import countrieRoutes from "./routes/countrieRoutes";
 
 // changing the dotenv directory in order to match the project directory
-const directory = path.resolve(process.cwd(), "../../.env");
+const directory = path.join(process.cwd(), ".env");
 dotenv.config({ path: directory });
 
 export class App {
