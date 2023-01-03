@@ -1,5 +1,5 @@
 import axios from "axios";
-import sanitizer from "./Sanitizer";
+import sanitizer from "./sanitizer.js";
 import { Response } from "express";
 import Countrie from "../models/Countrie";
 
