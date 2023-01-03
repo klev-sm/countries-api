@@ -1,6 +1,6 @@
 import axios from "axios";
-import { sanitizer } from "./Sanitizer";
-import { Request, Response } from "express";
+import sanitizer from "./Sanitizer";
+import { Response } from "express";
 import Countrie from "../models/Countrie";
 
 export function fetchApi(res: Response): void {
