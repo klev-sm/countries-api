@@ -10,6 +10,8 @@ router
     // countrie by one identifier
     .get("/countries/filterBy", CountrieController.getCountrieByIdentifier)
     // delete all countries
-    .delete("/countries", CountrieController.deleteAllCountries);
+    .delete("/countries", CountrieController.deleteAllCountries)
+    // update likes quantity
+    .put("/countries/likes/", CountrieController.changeLikesCount);
 
 export default router;

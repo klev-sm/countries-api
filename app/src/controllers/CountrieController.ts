@@ -24,7 +24,7 @@ export default class CountrieController {
                     }).status(200);
                 });
             } else {
-                // there are not countries saved on database
+                // there are no countries saved on database
                 // so I must get through api
                 fetchApi(res);
             }
@@ -81,5 +81,43 @@ export default class CountrieController {
             }).status(400);
             throw new Error(error);
         }
+    }
+
+    static changeLikesCount(req: Request, res: Response) {
+        const { name, like } = req.body;
+
+        let likesCounter: Number = 0;
+        if (like > 0) {
+            likesCounter = 1;
+        } else if (like < 0) {
+            likesCounter = -1;
+        }
+
+        Countrie.findOneAndUpdate(
+            { name: name },
+            {
+                $inc: { likes: likesCounter },
+            }
+        )
+            .then((countrie) => {
+                if (countrie == undefined) {
+                    res.json({
+                        status: "Error!",
+                        message:
+                            "It was impossible to find countrie with the given name",
+                    }).status(404);
+                    return;
+                }
+                res.json({
+                    status: "Success! Likes quantity updated.",
+                }).status(200);
+            })
+            .catch((error) => {
+                res.json({
+                    status: "Error!",
+                    message: error,
+                }).status(400);
+                throw new Error(error);
+            });
     }
 }
