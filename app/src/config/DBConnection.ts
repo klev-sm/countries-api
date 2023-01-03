@@ -1,7 +1,7 @@
 import mongoose, { Connection } from "mongoose";
 
 // creating singleton to get a single database connection
-export async function dbConnection(): Promise<Connection> {
+export default async function dbConnection(): Promise<Connection> {
     try {
         mongoose.set("strictQuery", false);
         const databaseConnection = await mongoose.connect(
