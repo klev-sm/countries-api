@@ -14,7 +14,7 @@ async function setup() {
     // starting server
     const appConnection = new App();
     appConnection.server.listen(appConnection.port, () => {
-        console.log("Server running succesfully on port " + appConnection.port);
+        console.log("Server succesfully running on port " + appConnection.port);
     });
 }
 

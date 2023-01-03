@@ -2,7 +2,8 @@ import mongoose, { Schema } from "mongoose";
 
 const CountrieSchema = new Schema({
     name: Object,
-    flags: String,
+    countrieCode: String,
+    flag: String,
     region: String,
     subregion: String,
     capital: Array,
@@ -12,6 +13,8 @@ const CountrieSchema = new Schema({
         of: String,
     },
     currencies: Object,
+    topLevelDomains: Array<String>,
+    likes: Number,
 });
 
 const Countrie = mongoose.model("Countrie", CountrieSchema);

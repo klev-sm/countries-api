@@ -6,7 +6,6 @@ export default class CountrieController {
     static async getCountries(_: Request, res: Response) {
         try {
             const documentQuantity: number = await Countrie.count();
-            console.log("quantidade: " + documentQuantity);
             if (documentQuantity > 0 && documentQuantity <= 250) {
                 // there are countries saved on database
                 // so I must return these countries
@@ -14,7 +13,8 @@ export default class CountrieController {
                     if (error) {
                         res.json({
                             status: "Failed!",
-                            message: "Could not return data!",
+                            message: "Could not return countries!",
+                            error: error,
                         }).status(404);
                     }
                     res.json({
@@ -33,10 +33,44 @@ export default class CountrieController {
         }
     }
 
+    // get one countrie by: name, code, region or subregion
+    static getCountrieByIdentifier(req: Request, res: Response) {
+        const query = req.query;
+        for (let i in query) {
+            finder(i, query[i]);
+        }
+
+        function finder(key: string, value: any) {
+            Countrie.find({
+                [key]: value,
+            })
+                .exec()
+                .then((countrie) => {
+                    if (countrie.length === 0) {
+                        res.json({
+                            status: "Success but does not find any data.",
+                            data: countrie,
+                        }).status(200);
+                    } else {
+                        res.json({
+                            status: `Success! Returned data filtered by ${key}.`,
+                            data: countrie,
+                        }).status(200);
+                    }
+                })
+                .catch((error) => {
+                    res.json({
+                        status: "Failed!",
+                        message: "Could not return countrie!",
+                        error: error,
+                    }).status(404);
+                });
+        }
+    }
+
     static deleteAllCountries(_: Request, res: Response) {
         try {
             Countrie.remove({}, () => {
-                console.log("removi tudo com sucesso");
                 res.json({
                     status: "Success! Data removed.",
                 }).status(200);
