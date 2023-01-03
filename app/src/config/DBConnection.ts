@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Connection } from "mongoose";
 
 // creating singleton to get a single database connection
 export class DBConnection {
@@ -6,18 +6,22 @@ export class DBConnection {
 
     public static async getInstance() {
         if (!this.db) {
-            this.db = new DBConnection().connectToDatabase();
+            this.db = await new DBConnection().connectToDatabase();
         }
         return this.db;
     }
 
-    private connectToDatabase() {
+    private async connectToDatabase(): Promise<Connection> {
         mongoose.set("strictQuery", false);
+        try {
+            const databaseConnection = await mongoose.connect(
+                `mongodb+srv://admin:${process.env.MONGODB_PASSWORD}@cluster-countries.0uaijgp.mongodb.net/countrie-api`
+            );
 
-        mongoose.connect(
-            `mongodb+srv://admin:${process.env.MONGODB_PASSWORD}@cluster-countries.0uaijgp.mongodb.net/countrie-api`
-        );
-        const databaseConnection = mongoose.connection;
-        return databaseConnection;
+            return databaseConnection.connection;
+        } catch (error) {
+            console.log("aq");
+            throw new Error(error);
+        }
     }
 }
