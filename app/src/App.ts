@@ -3,7 +3,7 @@ import cors from "cors";
 
 import express from "express";
 import path from "path";
-import countrieRoutes from "./routes/countrieRoutes";
+import countrieRoutes from "./routes/countrieRoutes.js";
 
 // changing the dotenv directory in order to match the project directory
 const directory = path.join(process.cwd(), ".env");

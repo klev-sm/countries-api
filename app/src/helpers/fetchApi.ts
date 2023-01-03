@@ -1,9 +1,9 @@
 import axios from "axios";
-import sanitizer from "./sanitizer.js";
 import { Response } from "express";
-import Countrie from "../models/Countrie";
+import sanitizer from "./sanitizer.js";
+import Countrie from "../models/Countrie.js";
 
-export function fetchApi(res: Response): void {
+export default function fetchApi(res: Response): void {
     axios
         .get("https://restcountries.com/v3.1/all")
         .then((allCountries) => {

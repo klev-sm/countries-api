@@ -1,5 +1,5 @@
-import { App } from "./App";
-import { DBConnection } from "./config/DBConnection";
+import { App } from "./App.js";
+import { DBConnection } from "./config/DBConnection.js";
 
 async function setup() {
     // creating connection with database

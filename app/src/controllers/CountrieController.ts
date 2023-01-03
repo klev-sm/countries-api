@@ -1,8 +1,8 @@
-import { fetchApi } from "../helpers/fetchApi";
-import Countrie from "../models/Countrie";
+import fetchApi from "../helpers/fetchApi.js";
+import Countrie from "../models/Countrie.js";
 import { Request, Response } from "express";
 
-export class CountrieController {
+export default class CountrieController {
     static async getCountries(_: Request, res: Response) {
         try {
             const documentQuantity: number = await Countrie.count();
