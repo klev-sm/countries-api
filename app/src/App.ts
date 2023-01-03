@@ -1,4 +1,5 @@
 import * as dotenv from "dotenv";
+import cors from "cors";
 
 import express from "express";
 import path from "path";
@@ -21,6 +22,7 @@ export class App {
 
     private middleware() {
         this.server.use(express.json());
+        this.server.use(cors());
     }
 
     private router() {
