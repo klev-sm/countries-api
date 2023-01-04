@@ -1,9 +1,9 @@
 import * as dotenv from "dotenv";
-import cors from "cors";
 import express from "express";
 import path from "path";
 
 import countrieRoutes from "./routes/countrieRoutes.js";
+import cors from "cors";
 
 // changing the dotenv directory in order to match the project directory
 const directory = path.join(process.cwd(), ".env");
@@ -15,8 +15,8 @@ export class App {
 
     constructor() {
         this.server = express();
-        this.router();
         this.middleware();
+        this.router();
         this.port = process.env.PORT || "5000";
     }
 
