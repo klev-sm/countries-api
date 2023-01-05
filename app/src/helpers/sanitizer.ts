@@ -5,11 +5,13 @@ export default function sanitizer(
     data: axios.AxiosResponse<any, any>
 ): Array<any> {
     const fetchedData: Array<any> = data.data;
+    let nameLang: string = "";
     const mappedData: Array<any> = fetchedData.map((resp) => {
         const objData = {
             name: resp.name["common"],
+            officialName: resp.name["official"],
             countrieCode: resp.cioc,
-            flag: resp.flags.png,
+            flag: resp.flags["png"],
             region: resp.region,
             subregion: resp.subregion,
             capital: resp.capital,

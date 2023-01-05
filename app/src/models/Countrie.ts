@@ -14,6 +14,7 @@ const CountrieSchema = new Schema({
     },
     currencies: Object,
     topLevelDomains: Array<String>,
+    borders: Array,
     likes: Number,
 });
 

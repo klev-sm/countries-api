@@ -48,7 +48,7 @@ export default function fetchApi(res: Response): void {
                     requestError: error.request,
                     message: error.message,
                     error: error.config,
-                }).status(error.response.status);
+                }).status(404);
             }
         });
 }
