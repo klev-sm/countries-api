@@ -5,7 +5,6 @@ export default function sanitizer(
     data: axios.AxiosResponse<any, any>
 ): Array<any> {
     const fetchedData: Array<any> = data.data;
-    let nameLang: string = "";
     const mappedData: Array<any> = fetchedData.map((resp) => {
         const objData = {
             name: resp.name["common"],

@@ -2,6 +2,7 @@ import mongoose, { Schema } from "mongoose";
 
 const CountrieSchema = new Schema({
     name: Object,
+    officialName: String,
     countrieCode: String,
     flag: String,
     region: String,
