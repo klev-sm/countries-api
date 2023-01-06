@@ -8,13 +8,21 @@ returns all countries
 
 returns countries by name, region, sub region or cca3 code, values ​​are passed by query params, example:
 
-### /countries/filterBy?name=Brazil - filter the country with name Brazil
+### /countries/filterBy?name=Brazil
 
-### /countries/filterBy?region=Americas - countries of the "Americas" continent
+filter the country with name Brazil
 
-### /countries/filterBy?subregion=North America - countries of the continent "North America"
+### /countries/filterBy?region=Americas
 
-### /countries/filterBy?countrieCode=BRA - filter country Brazil with acronym BRA
+countries of the "Americas" continent
+
+### /countries/filterBy?subregion=North America
+
+countries of the continent "North America"
+
+### /countries/filterBy?countrieCode=BRA
+
+filter country Brazil with acronym BRA
 
 ## DELETE /countries
 
